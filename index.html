@@ -10,6 +10,8 @@
 @media(max-width:880px){.app-layout{grid-template-columns:minmax(0,1fr)}.sidebar{border-left:0;border-top:1px solid var(--line);padding:24px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:30px}.current-position{display:none}.side-section{margin:0}.boards-shell{min-height:0;gap:30px;max-width:740px;margin:auto}.workspace-toolbar{margin-bottom:24px}.board-stage{margin-top:24px}.graph-stage .tile{min-width:36px}.board-stage .tile{font-size:25px}.app-header{padding:18px 22px}.app-layout{padding:22px 22px 0}.workspace-bottom{margin:20px 0}.position-strip{margin-top:24px}.sidebar .section-heading h2{font-size:14px}.side-section{border:0}.graph-position-label{font-size:9px}footer{margin-top:22px}}
 @media(max-width:550px){.app-header{padding:17px 16px}.brand-icon{width:36px;height:36px}.brand-icon svg{width:22px}h1{font-size:20px}.identity{gap:10px}.identity>div>span{font-size:8px}.header-actions{gap:0}.header-actions .icon-button{width:31px;height:34px}.header-actions svg{width:16px}.app-layout{padding:19px 16px 0}.workspace-toolbar{gap:5px;align-items:center}.segmented button{padding:6px 8px;font-size:12px;gap:5px}.segmented button svg{width:14px;height:14px}.toggle-label{font-size:10px;gap:3px}.toggle-label input{width:13px;height:13px;margin:2px}.boards-shell{grid-template-columns:1fr;gap:28px}.boards-shell[data-view=both] .board-section,.boards-shell[data-view=both] .graph-section{max-width:390px;width:100%;margin:auto}.board-stage{margin-top:10px}.view-heading{margin-bottom:10px}.board-slots{gap:9px}.board-stage .tile{font-size:27px}.board-stage .tile,.board-stage .blank-marker{width:calc(25% - 9px);height:calc(25% - 9px)}.view-caption{margin-top:16px}.graph-stage .tile{width:10%;min-width:39px;font-size:16px}.graph-stage .blank-marker{min-width:39px}.graph-stage{margin:0 0 -4px}.position-strip{font-size:11px;padding:15px 0;gap:8px}.position-strip>div{gap:10px}#origin-label{display:none}.replay-controls{flex-wrap:wrap;gap:8px}.transport{gap:1px}.transport .icon-button{width:31px}.play-button{width:37px;height:37px;margin:0 4px}.speed-label{margin-left:auto}.speed-label svg{display:none}#continue-play{margin-left:0;font-size:11px;min-height:26px}.workspace-bottom{gap:10px;flex-wrap:wrap;margin:15px 0}.workspace-bottom>span{flex-basis:100%;margin-bottom:0}.sidebar{gap:22px;grid-template-columns:1fr;padding-top:22px}.generation{border-bottom:1px solid var(--line);padding-bottom:20px}.manual-button{margin-bottom:0}.field-row{font-size:13px}.seed-field{max-width:240px}.side-section .segmented button{font-size:13px}.search-stats{font-size:11px}.bounds{gap:30px;margin:20px 0}.bounds strong{font-size:36px}.budget-presets button{height:33px;font-size:12px}.solver-section{padding-bottom:10px}.search-actions .primary-button{min-height:44px}.stop-button{height:44px;width:44px}.engine-indicator{font-size:11px}.input-unit input{font-size:16px}.field-row input,.field-row select{font-size:16px}.seed-field input{font-size:14px}.search-phase{font-size:11px}footer{padding:18px 16px;gap:9px;flex-wrap:wrap}footer button{min-height:26px}.replay-heading{gap:5px}.segmented.small button{font-size:11px;padding:5px 8px}#correspondence-line path{opacity:.35}}
 @media(prefers-reduced-motion:reduce){:root{--motion:0ms}*{scroll-behavior:auto!important}.tile,.blank-marker,.toast{transition:none!important}}
+
+.engine-help{margin-top:12px;font-size:11px;color:#6b7c84;line-height:1.7;overflow-wrap:anywhere}.engine-help .text-button{color:var(--teal);padding:3px 0;min-height:30px}
 </style></head>
 <body>
 <header class="app-header">
@@ -30,7 +32,7 @@
  </section>
  <aside class="sidebar">
   <section class="side-section generation"><div class="section-heading"><h2>新局面</h2><span class="eyebrow">POSITION</span></div><div class="segmented full" id="generation-tabs" role="group" aria-label="生成方式"><button data-mode="uniform" aria-pressed="true">均匀随机</button><button data-mode="scramble" aria-pressed="false">合法打乱</button></div><div class="field-row" id="scramble-row" hidden><label for="scramble-steps">打乱步数</label><input id="scramble-steps" type="number" min="1" max="2000" value="40"></div><div class="field-row"><label for="seed">种子</label><div class="seed-field"><input id="seed" type="text" maxlength="80" placeholder="自动生成" autocomplete="off"><button class="icon-button" id="seed-btn" aria-label="更换种子" data-tip="更换种子"><i data-lucide="dices"></i></button></div></div><button class="primary-button full-width" id="new-btn"><i data-lucide="shuffle"></i>生成新局面</button><button class="text-button manual-button" id="edit-btn"><i data-lucide="pencil-line"></i>手动摆局</button></section>
-  <section class="side-section solver-section"><div class="section-heading"><h2>最短路搜索</h2><span class="engine-indicator" id="engine-indicator">准备中</span></div><div class="field-row budget-row"><label for="budget">时间预算</label><div class="input-unit"><input id="budget" type="number" min="0.1" max="600" step="0.1" value="5"><span>秒</span></div></div><div class="budget-presets" role="group" aria-label="预设时间"><button data-seconds="1">1 秒</button><button data-seconds="5" class="selected">5 秒</button><button data-seconds="15">15 秒</button><button data-seconds="60">60 秒</button></div><div class="field-row"><label for="memory">搜索内存</label><select id="memory"><option value="32">32 MB</option><option value="64" selected>64 MB</option><option value="128">128 MB</option><option value="256">256 MB</option></select></div><div class="search-actions"><button class="primary-button" id="solve-btn" disabled><i data-lucide="scan-search"></i><span>开始搜索</span></button><button class="icon-button stop-button" id="stop-btn" disabled aria-label="停止搜索" data-tip="停止并保留最好解"><i data-lucide="square"></i></button></div><div class="search-progress"><div id="search-progress-fill"></div></div><div class="search-phase"><span id="search-phase">正在加载数据库</span><span class="tabular" id="search-time">0.0 秒</span></div><div class="bounds"><div><span>已证明下界</span><strong id="lower-bound">—</strong></div><div class="bounds-divider"></div><div><span>当前最好解</span><strong id="upper-bound">—</strong></div></div><div class="proof-status" id="proof-status"><i data-lucide="circle-dashed"></i><span>尚未搜索</span></div><div class="search-stats"><span>展开节点 <b id="nodes-count">0</b></span><span>改进次数 <b id="improvement-count">0</b></span></div><button class="secondary-button full-width" id="watch-btn" disabled><i data-lucide="play"></i>查看最好解</button></section>
+  <section class="side-section solver-section"><div class="section-heading"><h2>最短路搜索</h2><span class="engine-indicator" id="engine-indicator">准备中</span></div><div class="field-row budget-row"><label for="budget">时间预算</label><div class="input-unit"><input id="budget" type="number" min="0.1" max="600" step="0.1" value="5"><span>秒</span></div></div><div class="budget-presets" role="group" aria-label="预设时间"><button data-seconds="1">1 秒</button><button data-seconds="5" class="selected">5 秒</button><button data-seconds="15">15 秒</button><button data-seconds="60">60 秒</button></div><div class="field-row"><label for="memory">搜索内存</label><select id="memory"><option value="32">32 MB</option><option value="64" selected>64 MB</option><option value="128">128 MB</option><option value="256">256 MB</option></select></div><div class="search-actions"><button class="primary-button" id="solve-btn" disabled><i data-lucide="scan-search"></i><span>开始搜索</span></button><button class="icon-button stop-button" id="stop-btn" disabled aria-label="停止搜索" data-tip="停止并保留最好解"><i data-lucide="square"></i></button></div><div class="engine-help"><p id="engine-status" role="status">正在启动求解器…</p><button class="text-button" id="retry-engine" hidden>重试加速数据</button></div><div class="search-progress"><div id="search-progress-fill"></div></div><div class="search-phase"><span id="search-phase">正在加载数据库</span><span class="tabular" id="search-time">0.0 秒</span></div><div class="bounds"><div><span>已证明下界</span><strong id="lower-bound">—</strong></div><div class="bounds-divider"></div><div><span>当前最好解</span><strong id="upper-bound">—</strong></div></div><div class="proof-status" id="proof-status"><i data-lucide="circle-dashed"></i><span>尚未搜索</span></div><div class="search-stats"><span>展开节点 <b id="nodes-count">0</b></span><span>改进次数 <b id="improvement-count">0</b></span></div><button class="secondary-button full-width" id="watch-btn" disabled><i data-lucide="play"></i>查看最好解</button></section>
   <section class="side-section current-position"><div class="section-heading"><h2>当前局面</h2><button class="icon-button" id="copy-btn" aria-label="复制局面" data-tip="复制局面"><i data-lucide="copy"></i></button></div><div id="position-code" class="position-code"></div><div class="position-meta"><span id="position-origin">合法打乱</span><span id="position-parity">可解</span></div></section>
  </aside>
 </main>
@@ -38,7 +40,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <input type="file" id="file-input" accept=".json,application/json" hidden>
 <dialog id="edit-dialog"><form method="dialog" id="edit-form"><div class="dialog-heading"><h2>手动摆局</h2><button class="icon-button" value="cancel" aria-label="关闭"><i data-lucide="x"></i></button></div><div class="edit-grid" id="edit-grid"></div><div class="edit-status" id="edit-status" role="status"></div><div class="dialog-actions"><button class="secondary-button" value="cancel">取消</button><button class="primary-button" id="apply-edit" type="button"><i data-lucide="check"></i>应用局面</button></div></form></dialog>
-<dialog id="info-dialog"><div class="dialog-heading"><h2>马步图谱</h2><button class="icon-button" id="close-info" aria-label="关闭"><i data-lucide="x"></i></button></div><div class="info-content"><p>标准棋盘与图滑块共用 16 个位置、24 条合法连边。图中的小号标签是固定位置编号；线条交叉处不是节点。</p><p>均匀随机采用完整排列加奇偶修正。合法打乱从目标开始，保留逆向参考路线。两种生成方式使用可复现的种子。</p><p>独立生成的 5＋5＋5 代价分摊模式数据库，配合紧凑状态搜索。先寻找一条解，再改善上界、提高下界；上下界相等时证明最短。搜索内存达到限制后转入低内存阈值搜索。</p><p>预算只计算搜索时间。停止或耗尽预算时保留已找到的解；未找到解不代表局面不可解。重新搜索从新的预算开始，并使用已有最好路线。</p><p>键盘：← / → 回放，空格键播放或暂停。棋子和空格均可点按；拖动棋子到合法空格也可移动。数据仅保存在当前浏览器。</p><div class="info-version">独立实现 · 2026.09 · 4×4</div></div></dialog>
+<dialog id="info-dialog"><div class="dialog-heading"><h2>马步图谱</h2><button class="icon-button" id="close-info" aria-label="关闭"><i data-lucide="x"></i></button></div><div class="info-content"><p>标准棋盘与图滑块共用 16 个位置、24 条合法连边。图中的小号标签是固定位置编号；线条交叉处不是节点。</p><p>均匀随机采用完整排列加奇偶修正。合法打乱从目标开始，保留逆向参考路线。两种生成方式使用可复现的种子。</p><p>独立生成的 5＋5＋5 代价分摊模式数据库，配合紧凑状态搜索。先寻找一条解，再改善上界、提高下界；上下界相等时证明最短。搜索内存达到限制后转入低内存阈值搜索。</p><p>基础搜索在页面启动后即可使用，加速数据在后台加载；加载失败时仍可搜索并可重试。当前棋盘已还原时无需搜索。预算只计算搜索时间。停止或耗尽预算时保留已找到的解；未找到解不代表局面不可解。重新搜索从新的预算开始，并使用已有最好路线。</p><p>键盘：← / → 回放，空格键播放或暂停。棋子和空格均可点按；拖动棋子到合法空格也可移动。数据仅保存在当前浏览器。</p><div class="info-version">独立实现 · 2026.09 · 4×4</div></div></dialog>
 <script>/**
  * @license lucide v0.468.0 - ISC
  *
@@ -72,144 +74,26 @@ function hash(lo,hi){let h=lo^Math.imul(hi,0x9e3779b1);h=Math.imul(h^(h>>>16),0x
 function makeRng(seed){let h=2166136261;for(const c of String(seed)){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}const s=new Uint32Array(4);for(let i=0;i<4;i++){h+=0x9e3779b9;let x=h;x=Math.imul(x^(x>>>16),0x21f0aaad);x=Math.imul(x^(x>>>15),0x735a2d97);s[i]=(x^(x>>>15))>>>0;}const rot=(x,k)=>(x<<k)|(x>>>(32-k));return n=>{let x;const limit=4294967296-4294967296%n;do{const a=Math.imul(s[1],5);x=Math.imul(rot(a,7),9)>>>0;const t=s[1]<<9;s[2]^=s[0];s[3]^=s[1];s[1]^=s[2];s[0]^=s[3];s[2]^=t;s[3]=rot(s[3],11);}while(x>=limit);return x%n;};}
 function generate(mode,seed,steps=40){const pick=makeRng(seed);let b=goal.slice(),reference=[];if(mode==='uniform'){for(let i=15;i>0;i--){const j=pick(i+1);[b[i],b[j]]=[b[j],b[i]];}if(!solvable(b)){const i=b.indexOf(1),j=b.indexOf(2);[b[i],b[j]]=[b[j],b[i]];}}else{let prev=-1;const tiles=[];for(let i=0;i<steps;i++){const z=b.indexOf(0),opts=graph[z].filter(v=>v!==prev),v=opts[pick(opts.length)];tiles.push(b[v]);b=move(b,v);prev=z;}reference=tiles.reverse();}return {board:b,reference};}
 function makeHeuristic(tables){
- const owner=new Int8Array(16),shift=new Int8Array(16);groups.forEach((group,g)=>group.forEach((t,j)=>{owner[t]=g;shift[t]=4*(j+1);}));
- const keys=new Uint32Array(3),values=new Uint8Array(3),positions=new Uint8Array(16);let sum=0;
- function prepare(lo,hi,z){for(let i=0;i<8;i++){positions[(lo>>>(4*i))&15]=i;positions[(hi>>>(4*i))&15]=i+8;}sum=0;for(let g=0;g<3;g++){let key=z;for(let j=0;j<5;j++)key|=positions[groups[g][j]]<<(4*(j+1));keys[g]=key;values[g]=tables[g][rank(key)];sum+=values[g];}return sum+((sum^color(z))&1);}
- function child(tile,from,z){const g=owner[tile],s=shift[tile],key=(((keys[g]&~15)|from)&~(15<<s))|(z<<s);let h=sum-values[g]+tables[g][rank(key)];return h+((h^color(from))&1);}
- function value(b){const [lo,hi]=encode(b);return prepare(lo,hi,b.indexOf(0));}
- return {prepare,child,value};
-}
-const api={goal,graph,groups,distances,popcount,valid,solved,solvable,color,encode,decode,move,applyMoves,rank,hash,makeRng,generate,makeHeuristic};
-if(typeof module!=='undefined')module.exports=api;else root.KnightCore=api;
-})(globalThis);
-</script>
-<script id="worker-source" type="text/plain">(function(root){
-'use strict';
-const goal=Array.from({length:16},(_,i)=>(i+1)%16);
-const graph=Array.from({length:16},(_,u)=>Array.from({length:16},(_,v)=>v).filter(v=>Math.abs(u%4-v%4)*Math.abs((u>>2)-(v>>2))===2));
-const distances=graph.map((_,s)=>{const d=new Uint8Array(16);d.fill(255);d[s]=0;const q=[s];for(const u of q)for(const v of graph[u])if(d[v]===255){d[v]=d[u]+1;q.push(v);}return d;});
-const groups=[[1,7,10,3,5],[4,6,11,13,12],[2,8,9,14,15]];
-const popcount=new Uint8Array(65536);for(let i=1;i<65536;i++)popcount[i]=popcount[i>>1]+(i&1);
-function valid(b){return Array.isArray(b)&&b.length===16&&new Set(b).size===16&&b.every(x=>Number.isInteger(x)&&x>=0&&x<16);}
-function solved(b){return b.every((v,i)=>v===goal[i]);}
-function solvable(b){if(!valid(b))return false;let p=0;for(let i=0;i<16;i++)for(let j=i+1;j<16;j++)if((b[i]||16)>(b[j]||16))p^=1;return p===color(b.indexOf(0));}
-function color(z){return (z%4+(z>>2))&1;}
-function encode(b){let lo=0,hi=0;for(let i=0;i<8;i++){lo|=b[i]<<(4*i);hi|=b[i+8]<<(4*i);}return [lo>>>0,hi>>>0];}
-function decode(lo,hi){const b=[];for(let i=0;i<8;i++)b.push((lo>>>(4*i))&15);for(let i=0;i<8;i++)b.push((hi>>>(4*i))&15);return b;}
-function move(b,v){const z=b.indexOf(0);if(!graph[z].includes(v))return null;const n=b.slice();[n[z],n[v]]=[n[v],n[z]];return n;}
-function applyMoves(initial,moves){let b=initial.slice();for(const t of moves){const v=b.indexOf(t);if(!t||!graph[b.indexOf(0)].includes(v))throw Error('路线包含非法移动');b=move(b,v);}return b;}
-function rank(key){let used=0,r=0;for(let i=0;i<6;i++){const p=(key>>>(i*4))&15;r=r*(16-i)+p-popcount[used&((1<<p)-1)];used|=1<<p;}return r;}
-function hash(lo,hi){let h=lo^Math.imul(hi,0x9e3779b1);h=Math.imul(h^(h>>>16),0x85ebca6b);h=Math.imul(h^(h>>>13),0xc2b2ae35);return (h^(h>>>16))>>>0;}
-function makeRng(seed){let h=2166136261;for(const c of String(seed)){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}const s=new Uint32Array(4);for(let i=0;i<4;i++){h+=0x9e3779b9;let x=h;x=Math.imul(x^(x>>>16),0x21f0aaad);x=Math.imul(x^(x>>>15),0x735a2d97);s[i]=(x^(x>>>15))>>>0;}const rot=(x,k)=>(x<<k)|(x>>>(32-k));return n=>{let x;const limit=4294967296-4294967296%n;do{const a=Math.imul(s[1],5);x=Math.imul(rot(a,7),9)>>>0;const t=s[1]<<9;s[2]^=s[0];s[3]^=s[1];s[1]^=s[2];s[0]^=s[3];s[2]^=t;s[3]=rot(s[3],11);}while(x>=limit);return x%n;};}
-function generate(mode,seed,steps=40){const pick=makeRng(seed);let b=goal.slice(),reference=[];if(mode==='uniform'){for(let i=15;i>0;i--){const j=pick(i+1);[b[i],b[j]]=[b[j],b[i]];}if(!solvable(b)){const i=b.indexOf(1),j=b.indexOf(2);[b[i],b[j]]=[b[j],b[i]];}}else{let prev=-1;const tiles=[];for(let i=0;i<steps;i++){const z=b.indexOf(0),opts=graph[z].filter(v=>v!==prev),v=opts[pick(opts.length)];tiles.push(b[v]);b=move(b,v);prev=z;}reference=tiles.reverse();}return {board:b,reference};}
-function makeHeuristic(tables){
- const owner=new Int8Array(16),shift=new Int8Array(16);groups.forEach((group,g)=>group.forEach((t,j)=>{owner[t]=g;shift[t]=4*(j+1);}));
- const keys=new Uint32Array(3),values=new Uint8Array(3),positions=new Uint8Array(16);let sum=0;
- function prepare(lo,hi,z){for(let i=0;i<8;i++){positions[(lo>>>(4*i))&15]=i;positions[(hi>>>(4*i))&15]=i+8;}sum=0;for(let g=0;g<3;g++){let key=z;for(let j=0;j<5;j++)key|=positions[groups[g][j]]<<(4*(j+1));keys[g]=key;values[g]=tables[g][rank(key)];sum+=values[g];}return sum+((sum^color(z))&1);}
- function child(tile,from,z){const g=owner[tile],s=shift[tile],key=(((keys[g]&~15)|from)&~(15<<s))|(z<<s);let h=sum-values[g]+tables[g][rank(key)];return h+((h^color(from))&1);}
- function value(b){const [lo,hi]=encode(b);return prepare(lo,hi,b.indexOf(0));}
- return {prepare,child,value};
-}
-const api={goal,graph,groups,distances,popcount,valid,solved,solvable,color,encode,decode,move,applyMoves,rank,hash,makeRng,generate,makeHeuristic};
-if(typeof module!=='undefined')module.exports=api;else root.KnightCore=api;
-})(globalThis);
-
-(function(root){
-'use strict';
-const C=typeof module!=='undefined'?require('./core.js'):root.KnightCore;
-class Solver {
- constructor(tables){this.tables=tables;this.stopped=false;}
- cancel(){this.stopped=true;}
- async run(start,{seconds=5,memoryMB=64,incumbent=[],onProgress=()=>{},now=()=>performance.now(),yieldTask=()=>new Promise(r=>setTimeout(r,0))}={}){
-  if(!C.valid(start)||!C.solvable(start))throw Error('这个局面无法还原标准目标');
-  if(!Number.isFinite(seconds)||seconds<=0||seconds>600||!Number.isFinite(memoryMB)||memoryMB<8||memoryMB>512)throw Error('搜索预算无效');
-  this.stopped=false;
-  const began=now(),deadline=began+seconds*1000,h=C.makeHeuristic(this.tables),[slo,shi]=C.encode(start),[goalLo,goalHi]=C.encode(C.goal),z0=start.indexOf(0),parity=C.color(z0);
-  let lower=h.value(start),bestMoves=null,upper=Infinity,expanded=0,stored=0,reopened=0,phase='寻找解',reason='',weight=2,allocated=0,lastReport=-Infinity,lastYield=began,improvements=0;
-  if(incumbent.length&&C.solved(C.applyMoves(start,incumbent))){bestMoves=incumbent.slice();upper=bestMoves.length;}
-  if(C.solved(start)){bestMoves=[];upper=0;lower=0;}
-  function snapshot(done=false){return {done,reason,phase,lower,upper:Number.isFinite(upper)?upper:null,moves:bestMoves,expanded,stored,reopened,improvements,allocated,elapsed:now()-began,optimal:bestMoves!==null&&lower>=upper};}
-  function report(force=false){if(force||now()-lastReport>100){lastReport=now();onProgress(snapshot());}}
-  function roundBound(value){return value+((value^parity)&1);}
-  const halted=()=>this.stopped||now()>=deadline;
-  let maxNodes=Math.floor(memoryMB*1048576/41),hashCapacity=1;
-  while(hashCapacity<2*maxNodes)hashCapacity*=2;
-  let lows=new Uint32Array(maxNodes),highs=new Uint32Array(maxNodes),parents=new Int32Array(maxNodes),gs=new Uint16Array(maxNodes),hs=new Uint8Array(maxNodes),blanks=new Uint8Array(maxNodes),pending=new Uint8Array(maxNodes),open=new Uint32Array(maxNodes),bounds=new Uint32Array(maxNodes),best=new Uint32Array(hashCapacity);
-  allocated=25*maxNodes+4*hashCapacity;
-  let count=0,openSize=0,boundSize=0,memoryLimit=false;
-  const hashMask=hashCapacity-1;
-  const slotFor=(lo,hi)=>{let s=C.hash(lo,hi)&hashMask;while(best[s]){const n=best[s]-1;if(lows[n]===lo&&highs[n]===hi)break;s=(s+1)&hashMask;}return s;};
-  const live=n=>pending[n]&&best[slotFor(lows[n],highs[n])]===n+1;
-  function less(a,b,weighted){const af=gs[a]+(weighted?weight:1)*hs[a],bf=gs[b]+(weighted?weight:1)*hs[b];return af<bf||(af===bf&&(hs[a]<hs[b]||(hs[a]===hs[b]&&a<b)));}
-  function push(heap,n,size,weighted){let i=size;while(i){const p=(i-1)>>>1;if(!less(n,heap[p],weighted))break;heap[i]=heap[p];i=p;}heap[i]=n;}
-  function pop(heap,size,weighted){const first=heap[0],last=heap[size-1];size--;if(size){let i=0;while(2*i+1<size){let c=2*i+1;if(c+1<size&&less(heap[c+1],heap[c],weighted))c++;if(!less(heap[c],last,weighted))break;heap[i]=heap[c];i=c;}heap[i]=last;}return first;}
-  function append(lo,hi,g,heuristic,parent,z,slot){const n=count++;lows[n]=lo;highs[n]=hi;gs[n]=g;hs[n]=heuristic;parents[n]=parent;blanks[n]=z;pending[n]=1;best[slot]=n+1;push(open,n,openSize++,true);push(bounds,n,boundSize++,false);stored=count;}
-  function updateBound(){while(boundSize&&!live(bounds[0])){pop(bounds,boundSize,false);boundSize--;}if(boundSize)lower=Math.max(lower,Math.min(upper,roundBound(gs[bounds[0]]+hs[bounds[0]])));else if(bestMoves!==null)lower=upper;}
-  function rebuildWeight(value){weight=value;let size=0;for(let i=0;i<openSize;i++){const n=open[i];if(live(n))push(open,n,size++,true);}openSize=size;}
-  function install(n){const moves=[];for(let v=n;parents[v]>=0;v=parents[v]){const p=parents[v],z=blanks[p];moves.push(z<8?(lows[v]>>>(4*z))&15:(highs[v]>>>(4*(z-8)))&15);}moves.reverse();if(moves.length<upper){bestMoves=moves;upper=moves.length;improvements++;phase='缩短并证明';report(true);rebuildWeight(weight===2?1.5:weight===1.5?1.2:1);}}
-  append(slo,shi,0,lower,-1,z0,slotFor(slo,shi));report(true);
-  while(openSize&&lower<upper&&!halted()){
-   const sliceEnd=Math.min(deadline,now()+10);let steps=0;
-   while(openSize&&lower<upper&&steps++<4096){
-    if((steps&127)===0&&now()>=sliceEnd)break;
-    updateBound();if(lower>=upper)break;
-    const n=pop(open,openSize,true);openSize--;
-    if(!live(n))continue;
-    if(gs[n]+hs[n]>=upper){pending[n]=0;continue;}
-    const lo=lows[n],hi=highs[n],z=blanks[n];
-    if(lo===goalLo&&hi===goalHi){install(n);pending[n]=0;continue;}
-    // Keep a not-yet-expanded node in the proof frontier when memory fills.
-    if(count+C.graph[z].length>maxNodes){memoryLimit=true;break;}
-    pending[n]=0;expanded++;h.prepare(lo,hi,z);
-    const previous=parents[n]>=0?blanks[parents[n]]:-1;
-    for(const v of C.graph[z]){if(v===previous)continue;const tile=v<8?(lo>>>(4*v))&15:(hi>>>(4*(v-8)))&15;let nl=lo,nh=hi;if(v<8)nl^=tile<<(4*v);else nh^=tile<<(4*(v-8));if(z<8)nl^=tile<<(4*z);else nh^=tile<<(4*(z-8));nl>>>=0;nh>>>=0;const slot=slotFor(nl,nh),old=best[slot]-1,g=gs[n]+1;if(old>=0&&gs[old]<=g)continue;const hv=h.child(tile,v,z);if(g+hv>=upper)continue;if(old>=0)reopened++;append(nl,nh,g,hv,n,v,slot);}
-   }
-   updateBound();report();if(memoryLimit)break;
-   await yieldTask();lastYield=now();
-  }
-  updateBound();
-  if(memoryLimit&&lower<upper&&!halted()){
-   phase='低内存证明';report(true);
-   lows=highs=parents=gs=hs=blanks=pending=open=bounds=best=null;
-   await yieldTask();
-   // IDA* restarts from a certified lower bound. No history-dependent pruning
-   // or transposition cache is used here, so threshold exhaustion is a proof.
-   const board=start.slice(),route=[],frames=[];let threshold=lower,next=Infinity;
-   const tracker=C.makeHeuristic(this.tables);
-   const loStack=new Uint32Array(1024),hiStack=new Uint32Array(1024);loStack[0]=slo;hiStack[0]=shi;
-   function enter(z,previous,g){const [lo,hi]=C.encode(board),hv=tracker.prepare(lo,hi,z),f=g+hv;if(f>=upper)return false;if(f>threshold){next=Math.min(next,f);return false;}if(C.solved(board)){bestMoves=route.slice();upper=g;lower=g;improvements++;return false;}const opts=[];for(const v of C.graph[z])if(v!==previous)opts.push({v,tile:board[v],h:tracker.child(board[v],v,z)});opts.sort((a,b)=>a.h-b.h);frames.push({z,g,opts,index:0});expanded++;loStack[g]=lo;hiStack[g]=hi;return true;}
-   while(lower<upper&&!halted()){
-    next=Infinity;frames.length=0;route.length=0;enter(z0,-1,0);let ticks=0;
-    while(frames.length&&lower<upper&&!halted()){
-     const f=frames[frames.length-1];
-     if(f.index>=f.opts.length){frames.pop();if(frames.length){const parent=frames[frames.length-1];[board[parent.z],board[f.z]]=[board[f.z],board[parent.z]];route.pop();}continue;}
-     const o=f.opts[f.index++];[board[f.z],board[o.v]]=[board[o.v],board[f.z]];route.push(o.tile);
-     const [lo,hi]=C.encode(board);let cycle=false;for(let k=f.g-1;k>=0;k-=2)if(loStack[k]===lo&&hiStack[k]===hi){cycle=true;break;}
-     const descended=!cycle&&enter(o.v,f.z,f.g+1);
-     if(!descended){[board[f.z],board[o.v]]=[board[o.v],board[f.z]];route.pop();}
-     if((++ticks&511)===0){report();await yieldTask();lastYield=now();}
-    }
-    if(halted()||lower>=upper)break;
-    if(!Number.isFinite(next)||next>=upper){if(bestMoves!==null)lower=upper;else throw Error('搜索空间异常');break;}
-    lower=threshold=roundBound(next);report(true);
-   }
-  }
-  if(lower>=upper){lower=upper;reason='optimal';phase='最短已证明';}
-  else if(this.stopped){reason='cancelled';phase='已停止';}
-  else{reason='budget';phase='预算已用完';}
-  const result=snapshot(true);onProgress(result);return result;
+ if(!tables){
+  let sum=0;
+  function prepare(lo,hi,z){sum=0;for(let p=0;p<16;p++){const t=p<8?(lo>>>(4*p))&15:(hi>>>(4*(p-8)))&15;if(t)sum+=distances[p][t-1];}return sum+((sum^color(z))&1);}
+  function child(tile,from,z){const value=sum-distances[from][tile-1]+distances[z][tile-1];return value+((value^color(from))&1);}
+  function value(b){const [lo,hi]=encode(b);return prepare(lo,hi,b.indexOf(0));}
+  return {prepare,child,value};
  }
+ const owner=new Int8Array(16),shift=new Int8Array(16);groups.forEach((group,g)=>group.forEach((t,j)=>{owner[t]=g;shift[t]=4*(j+1);}));
+ const keys=new Uint32Array(3),values=new Uint8Array(3),positions=new Uint8Array(16);let sum=0;
+ function prepare(lo,hi,z){for(let i=0;i<8;i++){positions[(lo>>>(4*i))&15]=i;positions[(hi>>>(4*i))&15]=i+8;}sum=0;for(let g=0;g<3;g++){let key=z;for(let j=0;j<5;j++)key|=positions[groups[g][j]]<<(4*(j+1));keys[g]=key;values[g]=tables[g][rank(key)];sum+=values[g];}return sum+((sum^color(z))&1);}
+ function child(tile,from,z){const g=owner[tile],s=shift[tile],key=(((keys[g]&~15)|from)&~(15<<s))|(z<<s);let h=sum-values[g]+tables[g][rank(key)];return h+((h^color(from))&1);}
+ function value(b){const [lo,hi]=encode(b);return prepare(lo,hi,b.indexOf(0));}
+ return {prepare,child,value};
 }
-if(typeof module!=='undefined')module.exports={Solver};else root.KnightSolver={Solver};
+const api={goal,graph,groups,distances,popcount,valid,solved,solvable,color,encode,decode,move,applyMoves,rank,hash,makeRng,generate,makeHeuristic};
+if(typeof module!=='undefined')module.exports=api;else root.KnightCore=api;
 })(globalThis);
-
-let solver=null,tables=null,pending=null,running=false;
-async function unpack(compressed){const raw=atob(compressed),bytes=Uint8Array.from(raw,c=>c.charCodeAt(0));const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return new Uint8Array(await new Response(stream).arrayBuffer());}
-async function loadExternal(url){const response=await fetch(url);if(!response.ok)throw Error(`HTTP ${response.status}`);return unpack((await response.text()).trim());}
-async function pump(){if(running||!tables)return;running=true;while(pending){const task=pending;pending=null;solver=new KnightSolver.Solver(tables);try{await solver.run(task.board,{seconds:task.seconds,memoryMB:task.memoryMB,incumbent:task.incumbent||[],onProgress:state=>postMessage({type:'progress',id:task.id,state})});}catch(e){postMessage({type:'error',id:task.id,message:e.message});}solver=null;}running=false;}
-self.onmessage=async({data})=>{if(data.type==='init'){try{tables=[];if(data.databaseUrls){for(const url of data.databaseUrls){tables.push(await loadExternal(url));postMessage({type:'loading',loaded:tables.length,total:3});}}else{for(const compressed of data.database){tables.push(await unpack(compressed));postMessage({type:'loading',loaded:tables.length,total:3});}}if(tables.some(x=>x.length!==5765760))throw Error('模式数据库长度不正确');postMessage({type:'ready'});pump();}catch(e){postMessage({type:'error',message:'数据库加载失败：'+e.message});}}else if(data.type==='search'){pending=data;solver?.cancel();pump();}else if(data.type==='cancel'){pending=null;solver?.cancel();}};
 </script>
-<script id="database" type="application/json">{"urls":["data/pdb-0.gz.b64","data/pdb-1.gz.b64","data/pdb-2.gz.b64"]}</script>
+<script id="worker-source" type="text/plain"></script>
+<script id="database" type="application/json">{"urls":["data/pdb-0.gz.b64","data/pdb-1.gz.b64","data/pdb-2.gz.b64"],"workerUrl":"solver-worker.cf074962cedd.js"}</script>
 <script>(()=>{
 'use strict';
 const C=KnightCore,$=id=>document.getElementById(id),icons=()=>lucide.createIcons({attrs:{'stroke-width':1.7}});
@@ -217,7 +101,7 @@ const graphXY={12:[70,90],14:[160,90],3:[70,180],5:[160,180],4:[385,70],6:[475,7
 const groups=[[12,14,3,5],[4,6,11,13],[1,7,10,16],[2,9,8,15]],ringFor={};groups.forEach((g,i)=>g.forEach(v=>ringFor[v]=i));
 const key=b=>b.join(','),edgeID=(a,b)=>[Math.min(a,b),Math.max(a,b)].join('-');
 function edgePath(a,b){if(a>b)[a,b]=[b,a];const [x1,y1]=graphXY[a],[x2,y2]=graphXY[b];if(a===6&&b===12)return 'M475 70 C450 12 370 22 290 22 L155 22 Q90 22 70 90';if(a===6&&b===15)return 'M475 70 C535 78 535 108 535 145 L535 485 Q535 535 485 545';return `M${x1} ${y1} L${x2} ${y2}`;}
-let history=[C.goal.slice()],gameCursor=0,replay=null,replayCursor=0,active='game',generation='uniform',view='both',origin='标准局面',initialReference=[],solution=null,lastMove=null,hoverTile=null,playing=false,playTimer=0,animationUntil=0,sound=false,audioCtx=null,toastTimer=0,saveTimer=0,ready=false,searching=false,jobId=0,searchStart=null,searchBudget=5,lastStats=null,pointer=null,skipClickUntil=0,worker=null;
+let history=[C.goal.slice()],gameCursor=0,replay=null,replayCursor=0,active='game',generation='uniform',view='both',origin='标准局面',initialReference=[],solution=null,lastMove=null,hoverTile=null,playing=false,playTimer=0,animationUntil=0,sound=false,audioCtx=null,toastTimer=0,saveTimer=0,ready=false,searching=false,jobId=0,searchStart=null,searchBudget=5,lastStats=null,pointer=null,skipClickUntil=0,worker=null,engineMode='starting',workerTimer=0;
 const tiles={board:new Map(),graph:new Map()};
 const board=()=>active==='solution'&&replay?replay.frames[replayCursor]:history[gameCursor];
 const frames=()=>active==='solution'&&replay?replay.frames:history;
@@ -236,7 +120,7 @@ function render(animate=true){const b=board(),z=b.indexOf(0),legal=C.graph[z];do
  document.querySelectorAll('.graph-edge').forEach(el=>el.classList.remove('active','last'));for(const v of legal)$('edge-'+edgeID(z+1,v+1)).classList.add('active');if(lastMove)$('edge-'+edgeID(lastMove.from+1,lastMove.to+1)).classList.add('last');
  const coord=p=>[(p%4+.5)*100,((p>>2)+.5)*100];let paths='';if($('correspondence').checked){const [x,y]=coord(z);for(const v of legal){const [u,w]=coord(v);paths+=`<path class="legal-path" d="M${x} ${y} L${u} ${w}"/>`;}if(lastMove){const [x,y]=coord(lastMove.from),[u,v]=coord(lastMove.to);paths+=`<path class="move-path" d="M${x} ${y} L${u} ${v}"/>`;}}$('board-lines').innerHTML=paths;
  const won=C.solved(b);$('state-label').textContent=won?'已还原':active==='solution'?'解法回放':'进行中';$('state-dot').classList.toggle('complete',won);$('origin-label').textContent=active==='solution'?'求解路线':origin;$('home-count').textContent=b.filter((t,i)=>t&&t===i+1).length;$('move-count').textContent=cursor();$('position-code').innerHTML=b.map(t=>`<span>${t||'·'}</span>`).join('');$('position-origin').textContent=active==='solution'?'求解路线':origin;$('position-parity').textContent='可解';
- const currentFrames=frames(),at=cursor();$('timeline').max=currentFrames.length-1;$('timeline').value=at;$('replay-index').textContent=`${at} / ${currentFrames.length-1}`;for(const id of ['first-btn','prev-btn'])$(id).disabled=at===0;for(const id of ['last-btn','next-btn'])$(id).disabled=at===currentFrames.length-1;$('play-btn').disabled=currentFrames.length<=1;$('continue-play').hidden=active!=='solution';$('watch-btn').disabled=!solution;$('solve-btn').disabled=!ready||searching||won;$('solve-btn').querySelector('span').textContent=searching?'搜索中':solution&&key(solution.initial)===key(b)?'继续改善':'开始搜索';$('stop-btn').disabled=!searching;
+ const currentFrames=frames(),at=cursor();$('timeline').max=currentFrames.length-1;$('timeline').value=at;$('replay-index').textContent=`${at} / ${currentFrames.length-1}`;for(const id of ['first-btn','prev-btn'])$(id).disabled=at===0;for(const id of ['last-btn','next-btn'])$(id).disabled=at===currentFrames.length-1;$('play-btn').disabled=currentFrames.length<=1;$('continue-play').hidden=active!=='solution';$('watch-btn').disabled=!solution;$('solve-btn').disabled=!ready||searching||won;$('solve-btn').querySelector('span').textContent=searching?'搜索中':won?'已还原':!ready?'正在启动':solution&&key(solution.initial)===key(b)?'继续改善':'开始搜索';$('solve-btn').title=won?'当前局面已经还原。生成新局面后即可搜索。':!ready?'求解器正在启动，请查看下方状态。':'';$('stop-btn').disabled=!searching;
  document.querySelectorAll('[data-timeline]').forEach(el=>{el.setAttribute('aria-pressed',String(el.dataset.timeline===active));if(el.dataset.timeline==='solution')el.disabled=!solution;});$('solution-length').textContent=solution?`${solution.moves.length} 步`:'';$('move-detail').textContent=lastMove?`${lastMove.tile} 号：${lastMove.from+1} → ${lastMove.to+1} · ${active==='solution'?'解法':'游玩'}`:won?'数字升序归位，右下角为空格。':'点按浅绿色棋子，让它移入空格。';
  focusTile(hoverTile);requestAnimationFrame(drawCorrespondence);if(animate){animationUntil=performance.now()+190;setTimeout(drawCorrespondence,335);}scheduleSave();
 }
@@ -254,7 +138,70 @@ function clearSearch(){cancelSearch(true);solution=null;lastStats=null;searchSta
 function setGame(b,label,reference=[]){pause();clearSearch();history=[b.slice()];gameCursor=0;active='game';replay=null;origin=label;initialReference=reference.slice();lastMove=null;hoverTile=null;render(false);}
 function startSearch(){if(!ready||searching||C.solved(board()))return;pause();const seconds=Number($('budget').value);if(!Number.isFinite(seconds)||seconds<.1||seconds>600){toast('时间预算为 0.1～600 秒');return;}const b=board().slice();let incumbent=[];if(solution&&key(solution.initial)===key(b))incumbent=solution.moves.slice();if(!incumbent.length&&key(b)===key(history[0])&&initialReference.length)incumbent=initialReference.slice();searchStart=b;searchBudget=seconds;searching=true;const id=++jobId;lastStats=null;updateStats({lower:null,upper:incumbent.length||null,phase:'开始搜索',elapsed:0,expanded:0,improvements:0,done:false});worker.postMessage({type:'search',id,board:b,seconds,memoryMB:Number($('memory').value),incumbent});render(false);}
 function updateStats(s){if(!s){$('lower-bound').textContent='—';$('upper-bound').textContent='—';$('search-phase').textContent=ready?'就绪':'正在加载数据库';$('search-time').textContent='0.0 秒';$('search-progress-fill').style.width='0%';$('nodes-count').textContent='0';$('improvement-count').textContent='0';$('proof-status').classList.remove('proved');$('proof-status').innerHTML='<i data-lucide="circle-dashed"></i><span>尚未搜索</span>';icons();return;}lastStats=s;$('lower-bound').textContent=s.lower??'—';$('upper-bound').textContent=s.upper??'—';$('search-phase').textContent=s.phase;$('search-time').textContent=(s.elapsed/1000).toFixed(1)+' 秒';$('search-progress-fill').style.width=(s.optimal?100:Math.min(100,s.elapsed/(searchBudget*1000)*100))+'%';$('nodes-count').textContent=(s.expanded||0).toLocaleString();$('improvement-count').textContent=s.improvements||0;$('proof-status').classList.toggle('proved',!!s.optimal);const message=s.optimal?'上下界相等 · 最短已证明':s.upper!==null&&s.lower!==null?`最优长度在 ${s.lower}–${s.upper} 步之间`:s.done?'预算内尚未找到解':'正在寻找第一条解';$('proof-status').innerHTML=`<i data-lucide="${s.optimal?'badge-check':'circle-dashed'}"></i><span>${message}</span>`;icons();}
-function initWorker(){try{const url=URL.createObjectURL(new Blob([$('worker-source').textContent],{type:'text/javascript'}));worker=new Worker(url);URL.revokeObjectURL(url);worker.onmessage=({data})=>{if(data.type==='loading'){$('engine-indicator').textContent=`${data.loaded} / ${data.total}`;return;}if(data.type==='ready'){ready=true;$('engine-indicator').textContent='已就绪';$('engine-indicator').classList.add('ready');if(!lastStats)updateStats(null);render(false);return;}if(data.type==='error'){if(data.id!==undefined&&data.id!==jobId)return;searching=false;$('search-phase').textContent=data.message;toast(data.message);render(false);return;}if(data.type==='progress'&&data.id===jobId){const s=data.state;if(s.moves!==null){if(!solution||key(solution.initial)!==key(searchStart)||s.moves.length<=solution.moves.length){try{routeFrames(searchStart,s.moves);solution={initial:searchStart.slice(),moves:s.moves.slice(),lower:s.lower,optimal:s.optimal};}catch(e){cancelSearch(true);toast('搜索路线验证失败：'+e.message);return;}}}updateStats(s);if(s.done){searching=false;if(s.optimal)toast(`已证明最短：${s.upper} 步`);}render(false);}};worker.onerror=e=>{ready=false;searching=false;$('engine-indicator').textContent='加载失败';$('search-phase').textContent='求解器启动失败，请使用新版浏览器';toast(e.message||'求解器启动失败');render(false);};const config=JSON.parse($('database').textContent),message={type:'init'};if(Array.isArray(config))message.database=config;else message.databaseUrls=config.urls.map(item=>new URL(item,location.href).href);worker.postMessage(message);}catch(e){$('engine-indicator').textContent='加载失败';$('search-phase').textContent='请使用支持后台搜索的新版浏览器';toast(e.message);}}
+function engineStatus(mode,message,retry=false){
+ engineMode=mode;
+ $('engine-indicator').dataset.mode=mode;
+ $('engine-indicator').textContent=mode==='accelerated'?'已就绪':mode==='basic'?'基础模式':mode==='failed'?'启动失败':'准备中';
+ $('engine-indicator').classList.toggle('ready',ready);
+ $('engine-status').textContent=message;
+ $('retry-engine').hidden=!retry;
+ $('retry-engine').textContent=ready?'重试加速数据':'重试启动';
+}
+function failWorker(message){
+ clearTimeout(workerTimer);worker?.terminate();worker=null;ready=false;searching=false;
+ engineStatus('failed',message,true);
+ $('search-phase').textContent='启动失败，可重试';
+ render(false);
+}
+function initWorker(){
+ clearTimeout(workerTimer);worker?.terminate();ready=false;searching=false;
+ engineStatus('starting','正在启动求解器…');
+ try{
+  const config=JSON.parse($('database').textContent);
+  let blobUrl=null;
+  const url=config.workerUrl?new URL(config.workerUrl,location.href).href:(blobUrl=URL.createObjectURL(new Blob([$('worker-source').textContent],{type:'text/javascript'})));
+  const current=new Worker(url);worker=current;
+  const release=()=>{if(blobUrl){URL.revokeObjectURL(blobUrl);blobUrl=null;}};
+  workerTimer=setTimeout(()=>{if(worker===current&&!ready){release();failWorker('求解器启动超时，请重试。');}},10000);
+  current.onmessage=({data})=>{
+   if(worker!==current)return;
+   if(data.type==='loading'){
+    engineStatus('basic',`基础搜索可用；正在加载加速数据 ${data.loaded} / ${data.total}。`);
+    return;
+   }
+   if(data.type==='ready'){
+    clearTimeout(workerTimer);release();ready=true;
+    engineStatus(data.mode,data.mode==='accelerated'?'加速数据已就绪。': '基础搜索已就绪，加速数据在后台加载。');
+    if(!lastStats)updateStats(null);render(false);return;
+   }
+   if(data.type==='load-error'){
+    engineStatus('basic',`加速数据加载失败（${data.message}）。仍可搜索，可能较慢。`,true);
+    render(false);return;
+   }
+   if(data.type==='error'){
+    if(data.id!==undefined&&data.id!==jobId)return;
+    searching=false;$('search-phase').textContent=data.message;toast(data.message);render(false);return;
+   }
+   if(data.type==='progress'&&data.id===jobId){
+    const state=data.state;
+    if(state.moves!==null&&(!solution||key(solution.initial)!==key(searchStart)||state.moves.length<=solution.moves.length)){
+     try{routeFrames(searchStart,state.moves);solution={initial:searchStart.slice(),moves:state.moves.slice(),lower:state.lower,optimal:state.optimal};}
+     catch(e){cancelSearch(true);toast('搜索路线验证失败：'+e.message);return;}
+    }
+    updateStats(state);
+    if(state.done){searching=false;if(state.optimal)toast(`已证明最短：${state.upper} 步`);}
+    render(false);
+   }
+  };
+  current.onerror=e=>{if(worker!==current)return;release();failWorker('求解器启动失败，请重试或使用新版浏览器。');};
+  const message={type:'init'};
+  if(Array.isArray(config))message.database=config;
+  else message.databaseUrls=config.urls.map(item=>new URL(item,location.href).href);
+  current.postMessage(message);
+ }catch(e){failWorker('无法启动求解器：'+e.message);}
+}
+$('retry-engine').onclick=()=>{if(!ready){initWorker();return;}engineStatus('basic','正在重新加载加速数据；基础搜索仍可用。');worker.postMessage({type:'retry-data'});};
+
 function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem('knight-lab-v1',JSON.stringify({version:1,history,gameCursor,origin,initialReference,solution,preferences:{view,generation,correspondence:$('correspondence').checked,seed:$('seed').value,budget:$('budget').value,memory:$('memory').value,speed:$('speed').value}}));}catch{}},250);}
 function validateState(data){if(data.version!==1||!Array.isArray(data.history)||!data.history.length||data.history.length>20000)throw Error('记录格式无效');for(const b of data.history)if(!C.valid(b)||!C.solvable(b))throw Error('记录中有不可解局面');for(let i=1;i<data.history.length;i++){const b=data.history[i-1],n=data.history[i];if(key(C.move(b,n.indexOf(0))||[])!==key(n))throw Error('记录包含非法移动');}if(!Number.isInteger(data.gameCursor)||data.gameCursor<0||data.gameCursor>=data.history.length)throw Error('回放位置无效');if(data.initialReference?.length)routeFrames(data.history[0],data.initialReference);if(data.solution){if(!C.valid(data.solution.initial)||!C.solvable(data.solution.initial)||!Array.isArray(data.solution.moves)||data.solution.moves.length>20000)throw Error('解法记录无效');routeFrames(data.solution.initial,data.solution.moves);}return data;}
 function importState(data,restore=false){validateState(data);pause();clearSearch();history=data.history.map(b=>b.slice());gameCursor=data.gameCursor;initialReference=data.initialReference||[];origin=String(data.origin||'导入局面').slice(0,50);solution=data.solution?{...data.solution,lower:null,optimal:false}:null;active='game';replay=null;lastMove=null;if(restore&&data.preferences){const p=data.preferences;if(['both','board','graph'].includes(p.view))changeView(p.view);if(['uniform','scramble'].includes(p.generation))setGeneration(p.generation);$('correspondence').checked=p.correspondence!==false;$('seed').value=String(p.seed||'').slice(0,80);if(Number(p.budget)>=.1&&Number(p.budget)<=600)$('budget').value=p.budget;if(['32','64','128','256'].includes(p.memory))$('memory').value=p.memory;if(['1250','650','380','220'].includes(p.speed))$('speed').value=p.speed;}render(false);}
