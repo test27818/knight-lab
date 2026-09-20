@@ -1,2 +1,23 @@
-# knight-lab
-Interactive 4x4 Knight graph sliding puzzle with optimal-search budgets and synchronized board/graph views.
+# 马步图谱 · Knight Lab
+
+[在线游玩](https://test27818.github.io/knight-lab/)
+
+4×4 马步数字滑块与对应图滑块的独立交互应用。两种视图共享局面，支持对应连线、动画、解法回放和从回放中途继续游玩。
+
+## 功能
+
+- 均匀随机可解排列，或从目标进行合法打乱；支持固定种子。
+- 手动摆局、可解性判断、撤销重做、导入导出和本地保存。
+- 自定义搜索时间与内存预算，后台持续寻找更短路线。
+- 显示已证明下界与当前最好解；仅在上下界相等时报告最短已证明。
+- 独立生成的 5＋5＋5 代价分摊模式数据库，紧凑状态搜索及低内存回退。
+
+## 使用与部署
+
+使用支持 Web Worker 和 DecompressionStream 的现代浏览器。计算在设备本地运行，游戏记录只保存在浏览器，导出文件可自行备份。
+
+GitHub Pages 从 `main` 分支根目录发布。`index.html` 是应用入口，`data/*.gz.b64` 是三个压缩数据库。开发时请通过静态 HTTP 服务访问本目录；在线版需要加载这些资源。
+
+搜索耗尽预算不意味着无解，已有解不一定最短。实际搜索表现取决于局面、时间、内存和设备性能。
+
+图标使用 [Lucide](https://lucide.dev/)，许可见文件内的 ISC 许可声明。图上的 16 个固定位置及 24 条边与标准 4×4 马步关系一致，线条交叉处不是额外节点。
